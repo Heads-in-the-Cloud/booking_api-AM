@@ -9,31 +9,30 @@ import javax.validation.constraints.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookingCreateDto {
+public class BookingDto {
+
     private Integer id;
 
-    @NotBlank
-    @Min(0)
-    @Max(1)
+    @NotBlank(message = "You must set the booking's activation status.")
+    @Min(value = 0, message = "Active status must be 1 or 0.")
+    @Max(value = 1, message = "Active status must be 1 or 0.")
     private Integer isActive;
 
-    @NotBlank
-    @Size(min=10, max=10)
+    @NotBlank(message = "You must supply a confirmation code for the booking.")
+    @Size(min=10, max=10, message = "Confirmation codes must be 10 characters long.")
     private String confirmationCode;
 
-    @NotBlank
+    @NotBlank(message = "You must enter a flight ID.")
     private Integer flightId;
 
-    @NotBlank
-    private Integer userId;
-
-    @NotBlank
+    @NotBlank(message = "You must enter an Agent for the booking.")
     private Integer agentId;
 
-    @NotBlank
-    @Email
+    private Integer userId;
+
+    @Email(message = "Must enter a valid email address.")
     private String guestEmail;
 
-    @NotBlank
+    @Size(min=10, max=20, message = "Phone numbers should be at least 10 characters, no more than 20.")
     private String guestPhone;
 }

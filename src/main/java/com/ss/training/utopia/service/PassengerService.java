@@ -69,8 +69,6 @@ public class PassengerService {
 
     public Passenger add(PassengerDto insert) {
         Passenger passenger = dtoToEntity(insert);
-        if (dao.existsById(insert.getBookingId()))
-            throw new SQLAlreadyExistsException("Passenger", String.valueOf(insert.getBookingId()));
         return dao.save(passenger);
     }
 

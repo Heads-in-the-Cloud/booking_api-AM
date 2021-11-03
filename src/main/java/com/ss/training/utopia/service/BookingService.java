@@ -1,6 +1,5 @@
 package com.ss.training.utopia.service;
 
-import com.ss.training.utopia.Exception.SQLAlreadyExistsException;
 import com.ss.training.utopia.Exception.SQLDoesNotExistException;
 import com.ss.training.utopia.Exception.SQLInvalidInputException;
 import com.ss.training.utopia.dao.*;
@@ -10,7 +9,6 @@ import com.ss.training.utopia.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.SQLDataException;
 import java.util.List;
 import java.util.Optional;
 
