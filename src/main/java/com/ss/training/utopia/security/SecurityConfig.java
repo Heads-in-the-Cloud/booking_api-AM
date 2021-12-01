@@ -25,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             // set authorization
             .authorizeRequests()
-            .antMatchers("/api/v1/flights/**").hasRole("ADMIN")
             .antMatchers("/api/v1/**").authenticated();
     }
 
