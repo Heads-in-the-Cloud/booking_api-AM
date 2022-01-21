@@ -18,6 +18,7 @@ public class PaymentService {
     // vars
     private final PaymentDao dao;
     private final BookingDao bdao;
+    private final String objectType;
 
     /**
      * Constructor
@@ -26,6 +27,7 @@ public class PaymentService {
     public PaymentService(PaymentDao dao, BookingDao bdao) {
         this.dao = dao;
         this.bdao = bdao;
+        objectType = "Payment";
     }
 
     /**
@@ -54,28 +56,28 @@ public class PaymentService {
     public Payment getById(Integer id) {
         Optional<Payment> payment = dao.findById(id);
         if (payment.isEmpty())
-            throw new SQLDoesNotExistException("Payment", String.valueOf(id));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(id));
         return payment.get();
     }
 
     public Payment add(PaymentDto insert) {
         Payment payment = dtoToEntity(insert);
         if (dao.existsById(insert.getBookingId()))
-            throw new SQLAlreadyExistsException("Payment", String.valueOf(insert.getBookingId()));
+            throw new SQLAlreadyExistsException(objectType, String.valueOf(insert.getBookingId()));
         return dao.save(payment);
     }
 
     public void update(PaymentDto insert) {
         Payment payment = dtoToEntity(insert);
         if (!dao.existsById(payment.getBooking()))
-            throw new SQLDoesNotExistException("Payment", String.valueOf(insert.getBookingId()));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(insert.getBookingId()));
         dao.save(payment);
     }
 
     public void delete(Integer id) {
         Optional<Payment> payment = dao.findById(id);
         if (payment.isEmpty())
-            throw new SQLDoesNotExistException("Payment", String.valueOf(id));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(id));
         dao.delete(payment.get());
     }
 }

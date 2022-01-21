@@ -19,6 +19,7 @@ public class PassengerService {
     // vars
     private final PassengerDao dao;
     private final BookingDao bdao;
+    private final String objectType;
 
     /**
      * Constructor
@@ -27,6 +28,7 @@ public class PassengerService {
     public PassengerService(PassengerDao dao, BookingDao bdao) {
         this.dao = dao;
         this.bdao = bdao;
+        objectType = "Passenger";
     }
 
     /**
@@ -63,7 +65,7 @@ public class PassengerService {
     public Passenger getById(Integer id) {
         Optional<Passenger> passenger = dao.findById(id);
         if (passenger.isEmpty())
-            throw new SQLDoesNotExistException("Passenger", String.valueOf(id));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(id));
         return passenger.get();
     }
 
@@ -75,14 +77,14 @@ public class PassengerService {
     public void update(PassengerDto insert) {
         Passenger passenger = dtoToEntity(insert);
         if (!dao.existsById(passenger.getId()))
-            throw new SQLDoesNotExistException("Passenger", String.valueOf(insert.getBookingId()));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(insert.getBookingId()));
         dao.save(passenger);
     }
 
     public void delete(Integer id) {
         Optional<Passenger> passenger = dao.findById(id);
         if (passenger.isEmpty())
-            throw new SQLDoesNotExistException("Passenger", String.valueOf(id));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(id));
         dao.delete(passenger.get());
     }
 }

@@ -21,6 +21,7 @@ public class BookingService {
     private final UserDao udao;
     private final AgentDao adao;
     private final GuestDao gdao;
+    private final String objectType;
 
     /**
      * Constructor
@@ -32,6 +33,7 @@ public class BookingService {
         this.udao = udao;
         this.adao = adao;
         this.gdao = gdao;
+        objectType = "Booking";
     }
 
     /**
@@ -82,6 +84,8 @@ public class BookingService {
             case 2:
                 guest = BookingGuest.builder().bookingId(booking.getId())
                     .email(dto.getGuestEmail()).phone(dto.getGuestPhone()).build();
+            default:
+                break;
         }
 
         // create assigned agent object
@@ -109,7 +113,7 @@ public class BookingService {
     public Booking getById(Integer id) {
         Optional<Booking> booking = dao.findById(id);
         if (booking.isEmpty())
-            throw new SQLDoesNotExistException("Booking", String.valueOf(id));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(id));
         return booking.get();
     }
 
@@ -117,7 +121,7 @@ public class BookingService {
     public Booking add(BookingDto insert) {
         BookingObjects objects = dtoToCollection(insert);
         if (insert.getId() != null)
-            throw new SQLInvalidInputException("Booking");
+            throw new SQLInvalidInputException(objectType);
         if (objects.getBookingUser() != null) udao.save(objects.getBookingUser());
         else if (objects.getBookingGuest() != null) gdao.save(objects.getBookingGuest());
         fdao.save(objects.getBookingFlight());
@@ -129,7 +133,7 @@ public class BookingService {
     public void update(BookingDto insert) {
         BookingObjects objects = dtoToCollection(insert);
         if (!dao.existsById(insert.getId()))
-            throw new SQLDoesNotExistException("Booking", String.valueOf(insert.getId()));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(insert.getId()));
         dao.save(objects.getBooking());
         if (objects.getBookingUser() != null) udao.save(objects.getBookingUser());
         else if (objects.getBookingGuest() != null) gdao.save(objects.getBookingGuest());
@@ -140,7 +144,7 @@ public class BookingService {
     public void delete(Integer id) {
         Optional<Booking> booking = dao.findById(id);
         if (booking.isEmpty())
-            throw new SQLDoesNotExistException("Booking", String.valueOf(id));
+            throw new SQLDoesNotExistException(objectType, String.valueOf(id));
         dao.delete(booking.get());
     }
 }
