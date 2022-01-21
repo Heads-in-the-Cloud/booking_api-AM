@@ -1,7 +1,6 @@
 package com.ss.training.utopia.service;
 
-import com.ss.training.utopia.Exception.SQLAlreadyExistsException;
-import com.ss.training.utopia.Exception.SQLDoesNotExistException;
+import com.ss.training.utopia.exception.SQLDoesNotExistException;
 import com.ss.training.utopia.dao.BookingDao;
 import com.ss.training.utopia.dao.PassengerDao;
 import com.ss.training.utopia.dto.PassengerDto;

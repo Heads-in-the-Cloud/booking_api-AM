@@ -1,7 +1,7 @@
 package com.ss.training.utopia.service;
 
-import com.ss.training.utopia.Exception.SQLDoesNotExistException;
-import com.ss.training.utopia.Exception.SQLInvalidInputException;
+import com.ss.training.utopia.exception.SQLDoesNotExistException;
+import com.ss.training.utopia.exception.SQLInvalidInputException;
 import com.ss.training.utopia.dao.*;
 import com.ss.training.utopia.dto.BookingDto;
 import com.ss.training.utopia.dto.BookingObjects;
@@ -81,9 +81,11 @@ public class BookingService {
             case 1:
                 user = BookingUser.builder().id(BookingUserPK.builder()
                     .bookingId(booking.getId()).userId(dto.getUserId()).build()).build();
+                break;
             case 2:
                 guest = BookingGuest.builder().bookingId(booking.getId())
                     .email(dto.getGuestEmail()).phone(dto.getGuestPhone()).build();
+                break;
             default:
                 break;
         }
