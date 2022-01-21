@@ -3,9 +3,11 @@ pipeline {
 
     environment {
         commit = sh(returnStdout: true, script: "git rev-parse --short=8 HEAD").trim()
-        aws_region = 'us-west-2'
-        aws_ecr_repo = '026390315914'
+        aws_region = "${sh(script:'aws configure get region', returnStdout: true).trim()}"
+        aws_ecr_repo = "${sh(script:'aws sts get-caller-identity --query "Account" --output text', returnStdout: true).trim()}"
         repo_name = 'am-bookings-api'
+        jar_name = 'bookings-0.0.1-SNAPSHOT.jar'
+        sonarRunner = tool name: 'SonarQubeScanner-4.6.2'
     }
 
     stages {
