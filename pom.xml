@@ -9,9 +9,9 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.ss.training</groupId>
-  <artifactId>utopia</artifactId>
+  <artifactId>bookings</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>UserController</name>
+  <name>bookings</name>
   <description>User API Manager</description>
   <properties>
     <java.version>11</java.version>
