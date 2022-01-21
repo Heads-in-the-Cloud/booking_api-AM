@@ -25,7 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             // set authorization
             .authorizeRequests()
-            .antMatchers("/api/v1/**").authenticated();
+            .antMatchers("/api/v1/bookings/status").permitAll()
+            .antMatchers("/**").authenticated();
     }
 
     @Bean

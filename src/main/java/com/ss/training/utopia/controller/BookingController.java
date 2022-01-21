@@ -20,6 +20,11 @@ public class BookingController {
         this.service = service;
     }
 
+    @GetMapping("/status")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Healthy");
+    }
+
     @GetMapping
     public ResponseEntity<List<Booking>> getAllBookings() {
         List<Booking> bookings = service.getAll();
