@@ -20,7 +20,7 @@ public class BookingController {
         this.service = service;
     }
 
-    @GetMapping("/status")
+    @GetMapping("/ready")
     public ResponseEntity<String> healthCheck() {
         return ResponseEntity.ok("Healthy");
     }
