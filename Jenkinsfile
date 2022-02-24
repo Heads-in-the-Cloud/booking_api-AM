@@ -3,13 +3,14 @@ pipeline {
 
     environment {
         // General
-        COMMIT_HASH   = sh(returnStdout: true, script: "git rev-parse --short=8 HEAD").trim()
-        API_REPO_NAME = 'am-bookings-api'
-        JARFILE_NAME  = 'bookings-0.0.1-SNAPSHOT.jar'
-        SONARQUBE_ID  = tool name: 'SonarQubeScanner-4.6.2'
+        COMMIT_HASH     = sh(returnStdout: true, script: "git rev-parse --short=8 HEAD").trim()
+        API_REPO_NAME   = 'am-bookings-api'
+        JARFILE_NAME    = 'bookings-0.0.1-SNAPSHOT.jar'
+        SONARQUBE_ID    = tool name: 'SonarQubeScanner-4.6.2'
 
         // AWS Specific
-        AWS_PROFILE   = "${AWS_PROFILE_NAME}"
+        AWS_PROFILE     = "${AWS_PROFILE_NAME}"
+        SECRET_ID_PUSH  = "${AM_SECRET_ID_PUSH}"
     }
 
     stages {
