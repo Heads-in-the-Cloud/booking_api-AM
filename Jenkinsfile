@@ -73,14 +73,14 @@ pipeline {
                 echo 'Configuring Profile and Region'
                 sh 'aws configure set region ${AWS_REGION_ID} --profile ${AWS_PROFILE_NAME}'
 
-                echo 'Writing output to Secrets'
+                echo "Writing commits to secrets: ${COMMIT_HASH}"
                 script {
                     // get secret
                     secret = sh(returnStdout: true, script: 'aws secretsmanager get-secret-value --secret-id ${AM_SECRET_ID} | jq -Mr \'.SecretString\'').trim()
                     def jsonObj = readJSON text: secret
 
                     // update secret
-                    jsonObj.BOOKINGS_API_LATEST = "${COMMIT_HASH}"
+                    jsonObj.BOOKINGS_API_LATEST = env.COMMIT_HASH
 
                     // push secret
                     String jsonOut = writeJSON returnText: true, json: jsonObj
@@ -88,5 +88,7 @@ pipeline {
                 }
             }
         }
+
+        // end stages
     }
 }
